@@ -1,0 +1,35 @@
+html,body{
+  width:100%;
+  height:100%;
+  border:0;
+  margin:0;
+  cursor:pointer;
+  user-select:none;
+}
+body{
+  display:grid;
+  align-items:center;
+  justify-items:center;
+}
+#grid,#grid .zone{
+  display:grid;
+}
+#grid{
+  grid-template-columns:repeat(3,30vmin);
+  grid-template-rows:repeat(3,30vmin);
+}
+#grid .zone{
+  grid-template-columns:repeat(3,auto);
+  grid-template-rows:repeat(3,auto);
+  border:.1em solid black;
+}
+#grid .zone .cell{
+  border:.1em dashed black;
+  display:grid;
+  align-content:center;
+  justify-content:center;
+  font-size:1.2em;
+}
+#grid .zone .cell[valid=false]{
+  color:red;
+}
