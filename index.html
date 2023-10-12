@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <link rel='stylesheet' href='style/grid.css'>
+<link rel='stylesheet' href='style/style.css'>
+<link rel='stylesheet' href='style/difficulty.css'>
 
 <title>Sudieku</title>
 
-
-<div id='grid'>
+<div id='difficulties'>
+  <template id='difficulty'><button class='difficulty'></button></template>
+</div>
+<div id='grid' class='hidden'>
   <template id='zone'><div class='zone'>
     <template id='cell'><div class='cell'></div></template>
   </div></template>
@@ -12,5 +16,8 @@
 
 <script type='module'>
   import * as grid from './script/grid.js'
+  import * as difficulty from './script/difficulty.js'
   grid.setup()
+  difficulty.setup()
+  difficulty.show()
 </script>

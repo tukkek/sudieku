@@ -1,8 +1,10 @@
 import * as rpg from './rpg.js'
+import * as difficulty from './difficulty.js'
 
-const GRID=document.querySelector('#grid')
-const ZONE=GRID.querySelector('template#zone').content.childNodes[0]
+const VIEW=document.querySelector('#grid')
+const ZONE=VIEW.querySelector('template#zone').content.childNodes[0]
 const CELL=ZONE.querySelector('template#cell').content.childNodes[0]
+const WIN={}
 
 class Grid{
   constructor(){
@@ -10,15 +12,20 @@ class Grid{
     this.cells=Array.from(new Array(9),()=>new Array(9))
   }
   
-  roll(zone,x,y){
+  roll(){
     for(let z of this.zones){
-      let rolls=rpg.shuffle([1,2,3,4,5,6,7,8,9])
+      let rolls=rpg.shuffle(difficulty.choice,true)
       rolls[rpg.roll(0,8)]=false
       let i=0
       for(let x=z.x;x<z.x+3;x++) for(let y=z.y;y<z.y+3;y++) 
         this.cells[x][y].textContent=rolls[i++]||''
     }
-    this.paint()  
+    try{
+      this.paint()
+    }catch(e){
+      if(e!=WIN) throw e
+      this.roll()
+    }
   }
   
   click(cell,zone){
@@ -37,8 +44,14 @@ class Grid{
     if(deltax&&deltay) return
     empty.textContent=cell.textContent
     cell.textContent=''
-    //alert([x,y,zone.x,zone.y])
-    this.paint()
+    try{
+      this.paint()
+    }catch(e){
+      if(e!=WIN) throw e
+      alert('You won! 🥳')
+      VIEW.classList.add('hidden')
+      difficulty.show()
+    }
   }
   
   validate(cell){
@@ -58,7 +71,7 @@ class Grid{
       c.setAttribute('valid', v)
       if(!v) win=false
     }
-    if(win) alert('You win!')
+    if(win) throw WIN
   }
 }
 
@@ -83,8 +96,12 @@ export function setup(){
       z.x=x*3
       z.y=y*3
       draw(z,z.x,z.y)
-      GRID.appendChild(z)
+      VIEW.appendChild(z)
       grid.zones.push(z)
     }
+}
+
+export function show(){
+  VIEW.classList.remove('hidden')
   grid.roll()
 }

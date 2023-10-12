@@ -1,0 +1,14 @@
+#difficulties{
+  display:grid;
+  justify-items:center;
+  gap:1em;
+  margin:1em;
+}
+#difficulties button{
+  background-color:white;
+  border:.2em black solid;
+  padding:.2em;
+}
+#difficulties button:hover{
+  color:red;
+}
