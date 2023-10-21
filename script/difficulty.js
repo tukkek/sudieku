@@ -1,7 +1,9 @@
 import * as grid from './grid.js'
 
-const EASY='ABCDEFGHIJKLMNOPQRSTUVXWYZ12345679'
+const VERYEASY='ABCDEFGHIJKLMNOPQRSTUVXWYZ12345679♠♥♦♣'//'□△◇○'
+const EASY=VERYEASY.slice(0,26+9)
 const DIFFICULTIES={
+  'Very easy':VERYEASY,
   'Easy':EASY,
   'Medium':EASY.slice(0,EASY.length/2),
   'Hard':EASY.slice(0,EASY.length/3),
